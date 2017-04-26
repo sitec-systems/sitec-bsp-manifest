@@ -69,7 +69,7 @@ if [ $fullsetup ]; then
 	mkdir -p $BUILDDIR/conf
 	cp .repo/manifests/config/local.conf $BUILDDIR/conf/
 	cp .repo/manifests/config/bblayers.conf $BUILDDIR/conf/
-	cd $BUILDDIR
 fi
+cd $BUILDDIR
 
 cleanup
