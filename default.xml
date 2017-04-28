@@ -11,6 +11,8 @@
 		   name="poky" path="src/poky"/>
   <project remote="github" revision="a3a91dc1ef6d1dc42e284248b09dd474ba2cef80" 
 		   name="freescale/meta-fsl-arm" path="src/meta-fsl-arm"/>
+  <project remote="github" revision="1100037b9becaaa5749602bca9d63693119c4585" 
+           name="meta-qt5/meta-qt5" path="src/meta-qt5"/>
   <project remote="oe" revision="247b1267bbe95719cd4877d2d3cfbaf2a2f4865a"
 		   name="meta-openembedded" path="src/meta-openembedded"/>
   <project remote="yocto" revision="9edf7d5aa5bdcf9afc4365fd1d85feca72b4ef1a"
