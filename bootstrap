@@ -4,6 +4,7 @@ cleanup() {
 	unset OPTIND OPTARG BUILDDIR CURDIR
 	unset opts builddir fullsetup
 	unset usage
+  unset machine
 }
 
 usage() {
@@ -16,6 +17,10 @@ Command preares your build environment for the yocto build.
       The builddirectory is take from the BUILDDIR environment variable. If this
       variable isn't set by the user the default value "build" will be taken.
   -h: Show help text						  
+
+Environment variables:
+  BUILDDIR=<BUILDDIR>: Uses another build directory instead of build. You need to set this
+                       variable before every source of the script.
 EOF
 }
 
@@ -34,7 +39,6 @@ Builddir="build"
 
 if [ ! $BUILDDIR ]; then
 	BUILDDIR="build"
-	echo "No builddir found use $BUILDDIR"
 fi
 
 while getopts "hf" opts; do
@@ -56,9 +60,24 @@ while getopts "hf" opts; do
 	esac
 done
 
+echo "Using builddirectory $BUILDDIR"
+
+if [ -d $CURDIR/src/meta-sitec-s7 ]; then
+  machine=s7
+else
+  machine=s4
+fi
+
+echo "Using machine $machine"
+cat << EOF
+
+For build sitec-systems image use the command:
+  bitbake sitec-image
+EOF
+
 # Publish yocto build system environment
 cd "src/poky/"
-. ./oe-init-build-env $CURDIR/$BUILDDIR
+. ./oe-init-build-env $CURDIR/$BUILDDIR > /dev/null
 cd $CURDIR
 
 if [ $fullsetup ]; then
@@ -67,8 +86,8 @@ if [ $fullsetup ]; then
 		rm -rf $BUILDDIR
 	fi
 	mkdir -p $BUILDDIR/conf
-	cp .repo/manifests/config/local.conf $BUILDDIR/conf/
-	cp .repo/manifests/config/bblayers.conf $BUILDDIR/conf/
+	cp .repo/manifests/config/$machine/local.conf $BUILDDIR/conf/
+	cp .repo/manifests/config/$machine/bblayers.conf $BUILDDIR/conf/
 fi
 cd $BUILDDIR
 
