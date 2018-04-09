@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<manifest>
+  <default sync-j="4" />
+
+  <remote fetch="git://git.phytec.de" name="git.phytec" />
+  <remote fetch="git://github.com" name="github" />
+  <remote fetch="git://git.openembedded.org" name="oe" />
+  <remote fetch="git://git.ti.com" name="ti" />
+  <remote fetch="git://git.yoctoproject.org" name="yocto" />
+
+
+  <project name="meta-openembedded" path="src/meta-openembedded" remote="oe"
+    revision="851a064b53dca3b14dd33eaaaca9573b1a36bf0e" />
+  <project remote="git.phytec" name="meta-phytec" path="src/meta-phytec"
+    revision="refs/tags/2.1.2-phy1" />
+  <project name="meta-qt5/meta-qt5" path="src/meta-qt5" remote="github"
+    revision="2b1871f0d139dc3caaa779a32a1931409c245a36" />
+  <project name="meta-yogurt" remote="git.phytec" path="src/meta-yogurt"
+    revision="refs/tags/2.1.2-phy1" />
+  <project name="poky" path="src/poky" remote="yocto"
+    revision="refs/tags/yocto-2.1.2"/>
+  <project name="sitec-systems/meta-sitec-s7.git" remote="github" path="src/meta-sitec-s7" revision="krogoth">
+    <copyfile dest="bootstrap" src="../../.repo/manifests/bootstrap"/>
+  </project>
+  <project remote="github" revision="krogoth" name="sitec-systems/meta-sitec-bsp" path="src/meta-sitec-bsp">
+</manifest>

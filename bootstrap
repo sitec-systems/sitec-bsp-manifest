@@ -1,14 +1,14 @@
 #!/bin/bash
 
 cleanup() {
-	unset OPTIND OPTARG BUILDDIR CURDIR
-	unset opts builddir fullsetup
-	unset usage
+  unset OPTIND OPTARG BUILDDIR CURDIR
+  unset opts builddir fullsetup
+  unset usage
   unset machine
 }
 
 usage() {
-	cat <<EOF
+  cat <<EOF
 [BUILDDIR=<BUILDDIR>] source ${BASH_SOURCE[0]} [-f] [-h]
 
 Command preares your build environment for the yocto build.
@@ -16,7 +16,7 @@ Command preares your build environment for the yocto build.
       the configurations templates for bitbake into the dedicated location.
       The builddirectory is take from the BUILDDIR environment variable. If this
       variable isn't set by the user the default value "build" will be taken.
-  -h: Show help text						  
+  -h: Show help text
 
 Environment variables:
   BUILDDIR=<BUILDDIR>: Uses another build directory instead of build. You need to set this
@@ -25,12 +25,12 @@ EOF
 }
 
 if [ "$0" = "$BASH_SOURCE" ]; then
-	cat <<EOF
+  cat <<EOF
 You need to source this script!!!
 
 source ${BASH_SOURCE[0]} [-f] [-h]
 EOF
-	exit 1
+exit 1
 fi
 
 CURDIR=$(pwd)
@@ -38,38 +38,38 @@ CURDIR=$(pwd)
 Builddir="build"
 
 if [ ! $BUILDDIR ]; then
-	BUILDDIR="build"
+  BUILDDIR="build"
 fi
 
 while getopts "hf" opts; do
-	case $opts in
-		h)
-			usage
-			cleanup
-			return 0
-			;;
-		f)
-			fullsetup=1
-			;;
-		*)
-			usage
-			cleanup
-			return 1
-			;;
-		
-	esac
-done
+  case $opts in
+    h)
+      usage
+      cleanup
+      return 0
+      ;;
+    f)
+      fullsetup=1
+      ;;
+    *)
+      usage
+      cleanup
+      return 1
+      ;;
 
-echo "Using builddirectory $BUILDDIR"
+    esac
+  done
 
-if [ -d $CURDIR/src/meta-sitec-s7 ]; then
-  machine=s7
-else
-  machine=s4
-fi
+  echo "Using builddirectory $BUILDDIR"
 
-echo "Using machine $machine"
-cat << EOF
+  if [ -d $CURDIR/src/meta-sitec-s7 ]; then
+    machine=s7
+  else
+    machine=s4
+  fi
+
+  echo "Using machine $machine"
+  cat << EOF
 
 For build sitec-systems image use the command:
   bitbake sitec-image
@@ -81,13 +81,13 @@ cd "src/poky/"
 cd $CURDIR
 
 if [ $fullsetup ]; then
-	echo "Doing full setup"
-	if [ -d $BUILDDIR ]; then
-		rm -rf $BUILDDIR
-	fi
-	mkdir -p $BUILDDIR/conf
-	cp .repo/manifests/config/$machine/local.conf $BUILDDIR/conf/
-	cp .repo/manifests/config/$machine/bblayers.conf $BUILDDIR/conf/
+  echo "Doing full setup"
+  if [ -d $BUILDDIR ]; then
+    rm -rf $BUILDDIR
+  fi
+  mkdir -p $BUILDDIR/conf
+  cp .repo/manifests/config/$machine/local.conf $BUILDDIR/conf/
+  cp .repo/manifests/config/$machine/bblayers.conf $BUILDDIR/conf/
 fi
 cd $BUILDDIR
 
