@@ -1,5 +1,7 @@
-sitec-bsp-manifest
+sitec-bsp-manifest ARCHIVED
 ==================
+
+**THIS REPOSITORY IS ARCHIVED! PLEASE USE THE DEVICE SPECIFIC MANIFEST REPOSITORIES!**
 
 Manifest repositroy for building BSPs for sitec-systems devices.
 
